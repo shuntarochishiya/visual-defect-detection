@@ -1,0 +1,62 @@
+
+services:
+  # 1. The Ingestion & Messaging Layer (YOUR MAIN SERVICE)
+  ingestion-layer:
+    build: ./ingestion_layer
+    container_name: ingestion_layer
+    ports:
+      - "8000:8000"
+    environment:
+      # These URLs point to where your teammates' services will eventually run
+      - VISION_SERVICE_URL=http://vision-service:8001/detect
+      - TIMING_SERVICE_URL=http://timing-service:8002/analyze
+    networks:
+      - microservice_net
+
+  # 2. The Streaming Generator (Runs as a background container)
+  streaming-generator:
+    build: ./streaming_generator
+    container_name: streaming_generator
+    depends_on:
+      - ingestion-layer
+    environment:
+      - INGESTION_URL=http://ingestion-layer:8000
+    volumes:
+      # Mount your local NEU-DET images into the container
+      - ./neu_det_images:/app/neu_det_images
+    networks:
+      - microservice_net
+
+  # --- PLACEHOLDERS FOR TEAMMATES' SERVICES ---
+  # Your teammates will replace these with their actual Dockerfiles
+  #vision-service:
+   # image: alpine:latest # Placeholder
+   # command: sleep infinity
+   # container_name: vision-service
+   # networks:
+   #   - microservice_net
+
+  #timing-service:
+   # image: alpine:latest # Placeholder
+   # command: sleep infinity
+   # container_name: timing-service
+   # networks:
+   #   - microservice_net
+  vision-service:
+    build: ./mock_vision
+    container_name: vision-service
+    ports:
+      - "8001:8001"
+    networks:
+      - microservice_net
+
+  timing-service:
+    build: ./mock_timing
+    container_name: timing-service
+    ports:
+      - "8002:8002"
+    networks:
+      - microservice_net
+networks:
+  microservice_net:
+    driver: bridge

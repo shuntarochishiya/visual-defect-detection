@@ -1,0 +1,26 @@
+   # Python
+   __pycache__/
+   *.py[cod]
+   *$py.class
+   *.so
+   .Python
+   venv/
+   env/
+   .env
+
+   # IDE
+   .vscode/
+   .idea/
+   *.swp
+   *.swo
+
+   # OS
+   .DS_Store
+   Thumbs.db
+
+   # Docker (keep the files, but ignore build artifacts if any)
+   *.log
+
+   # NOTE: If your neu_det_images folder has the FULL dataset (GBs), 
+   # uncomment the line below and only keep 2-3 sample images in a separate 'sample_images' folder.
+   # neu_det_images/
