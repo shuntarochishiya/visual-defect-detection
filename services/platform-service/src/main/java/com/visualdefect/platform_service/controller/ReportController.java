@@ -1,6 +1,7 @@
 package com.visualdefect.platform_service.controller;
 
 import com.visualdefect.platform_service.dto.AnomalyReport;
+import com.visualdefect.platform_service.dto.ReportListResponse;
 import com.visualdefect.platform_service.service.ReportStore;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +18,9 @@ public class ReportController {
     }
 
     @GetMapping
-    public List<AnomalyReport> list() {
-        return reportStore.findAll();
+    public ReportListResponse list() {
+        List<AnomalyReport> reports = reportStore.findAll();
+        return new ReportListResponse(reports.size(), reports);
     }
 
     @GetMapping("/{id}")
