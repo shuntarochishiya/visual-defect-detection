@@ -10,6 +10,8 @@ services:
       # These URLs point to where your teammates' services will eventually run
       - VISION_SERVICE_URL=http://vision-service:8001/detect
       - TIMING_SERVICE_URL=http://timing-service:8002/analyze
+      # Spring Boot runs on the host machine during local development.
+      - PLATFORM_SERVICE_URL=http://host.docker.internal:8080
     networks:
       - microservice_net
 
@@ -21,6 +23,7 @@ services:
       - ingestion-layer
     environment:
       - INGESTION_URL=http://ingestion-layer:8000
+      - PLATFORM_SERVICE_URL=http://host.docker.internal:8080
     volumes:
       # Mount your local NEU-DET images into the container
       - ./neu_det_images:/app/neu_det_images
