@@ -1,12 +1,14 @@
 import os
 import logging
 from fastapi import FastAPI, UploadFile, File, HTTPException, BackgroundTasks
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import List, Optional
 import httpx
 import base64
 
 app = FastAPI(title="Data Ingestion & Messaging Layer (HTTP)")
+app.mount("/images", StaticFiles(directory="/app/neu_det_images"), name="images")
 
 # Configuration for downstream services (Set via Docker Compose env vars)
 VISION_SERVICE_URL = os.getenv("VISION_SERVICE_URL", "http://vision-service:8001/detect")

@@ -16,6 +16,7 @@ public class AnomalyReport {
     private String metric;
     private String startTime;
     private String endTime;
+    private String fileName;
 
     public AnomalyReport() {
     }
@@ -100,6 +101,8 @@ public class AnomalyReport {
     public String getEndTime() {
         return endTime;
     }
+    public String getFileName() { return fileName; }
+    public void setFileName(String fileName) { this.fileName = fileName; }
     public void setMetric(String metric) {
         this.metric = metric;
     }

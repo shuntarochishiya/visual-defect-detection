@@ -12,6 +12,8 @@ services:
       - TIMING_SERVICE_URL=http://timing-service:8002/analyze
       # Spring Boot runs on the host machine during local development.
       - PLATFORM_SERVICE_URL=http://host.docker.internal:8080
+    volumes:
+      - ./neu_det_images:/app/neu_det_images:ro
     networks:
       - microservice_net
 

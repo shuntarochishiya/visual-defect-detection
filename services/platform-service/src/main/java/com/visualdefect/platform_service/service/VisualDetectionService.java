@@ -36,6 +36,7 @@ public class VisualDetectionService {
                 "v1",
                 37
         );
+        report.setFileName(request.getFileName());
         reportStore.save(report);
         return report;
     }
