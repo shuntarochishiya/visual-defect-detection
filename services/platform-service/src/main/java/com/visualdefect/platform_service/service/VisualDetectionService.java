@@ -9,6 +9,11 @@ import java.util.UUID;
 
 @Service
 public class VisualDetectionService {
+    private final ReportStore reportStore;
+
+    public VisualDetectionService(ReportStore reportStore) {
+        this.reportStore = reportStore;
+    }
 
     public AnomalyReport detect(VisualDetectionRequest request) {
         BoundingBox box = new BoundingBox(
@@ -18,7 +23,7 @@ public class VisualDetectionService {
                 90
         );
 
-        return new AnomalyReport(
+        AnomalyReport report = new AnomalyReport(
                 UUID.randomUUID().toString(),
                 request.getStreamId(),
                 "VISUAL",
@@ -31,5 +36,7 @@ public class VisualDetectionService {
                 "v1",
                 37
         );
+        reportStore.save(report);
+        return report;
     }
 }

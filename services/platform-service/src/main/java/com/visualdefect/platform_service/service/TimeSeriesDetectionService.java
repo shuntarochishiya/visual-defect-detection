@@ -10,6 +10,11 @@ import java.util.UUID;
 
 @Service
 public class TimeSeriesDetectionService {
+    private final ReportStore reportStore;
+
+    public TimeSeriesDetectionService(ReportStore reportStore) {
+        this.reportStore = reportStore;
+    }
 
     public AnomalyReport detect(TimeSeriesDetectionRequest request) {
         List<TimeSeriesPoint> points = request.getPoints();
@@ -34,6 +39,7 @@ public class TimeSeriesDetectionService {
         report.setStartTime(latest.getTimestamp());
         report.setEndTime(latest.getTimestamp());
 
+        reportStore.save(report);
         return report;
     }
 }
