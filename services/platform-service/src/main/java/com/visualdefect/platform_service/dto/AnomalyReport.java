@@ -13,6 +13,9 @@ public class AnomalyReport {
     private String modelName;
     private String modelVersion;
     private long latencyMs;
+    private String metric;
+    private String startTime;
+    private String endTime;
 
     public AnomalyReport() {
     }
@@ -85,5 +88,27 @@ public class AnomalyReport {
 
     public long getLatencyMs() {
         return latencyMs;
+    }
+    public String getMetric() {
+        return metric;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+    public void setMetric(String metric) {
+        this.metric = metric;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 }
